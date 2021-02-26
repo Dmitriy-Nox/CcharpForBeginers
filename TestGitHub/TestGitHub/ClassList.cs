@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TestGitHub
 {
-    public class ClassList
+    internal class ClassList
     {
         public ClassList()
         {
@@ -13,13 +13,13 @@ namespace TestGitHub
         public Box First;
         public Box Last;
         public Box CurrView;
+        public int _count;
 
-
-        public void Add(int val)
+        public void Add(object val)
         {
-            Box box = new Box(val) ;
-            
-            if (First == null&& Last == null)
+            Box box = new Box(val);
+
+            if (First == null && Last == null)
             {
                 First = box;
                 Last = box;
@@ -33,8 +33,8 @@ namespace TestGitHub
                 Last.Next = box;
                 Last = box;
             }
-            
-            
+            _count++;
+
         }
         private Box currBoxView;
         public Box CurrBoxView
@@ -46,7 +46,7 @@ namespace TestGitHub
                     currBoxView = First;
                     return currBoxView;
                 }
-                    
+
 
                 currBoxView = currBoxView.Next;
                 return currBoxView;
@@ -64,16 +64,8 @@ namespace TestGitHub
             }
         }
 
-        public class Box
-        {
-            public Box(int value)
-            {
-                Val = value;
-                Next = null;
+        public int Count { get; }
 
-            }
-            public int Val { get; set; }
-            public Box Next { get; set; }
-        }
-    }
+    }    
+    
 }
