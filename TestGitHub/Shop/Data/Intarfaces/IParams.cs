@@ -13,5 +13,7 @@ namespace Shop.Data.Intarfaces
        double Vol { get; set; }
 
        decimal Price { get; set; }
+
+       string Cathegory { get; set; }
     }
 }

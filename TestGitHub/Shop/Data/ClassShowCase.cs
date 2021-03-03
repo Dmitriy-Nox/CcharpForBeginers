@@ -6,13 +6,14 @@ using Shop.Data.Intarfaces;
 
 namespace Shop.Data
 {
-    public class ClassShowCase : IParams, IPlace
+    public class ClassShowCase<T> : IParams, IPlace<T> where T : ClassProduct
     {
-        public ClassShowCase(double vol,string name)
+        public ClassShowCase(double vol,string name,string cathegory)
         {
             DateTimeCreate = DateTime.Now;
             Id= idShowCase++;
             Name = name;
+            Cathegory = cathegory;
             Vol = vol;
 
         }
@@ -46,20 +47,25 @@ namespace Shop.Data
 
             set { }
         }
-        public void RemoveItem<ClassProduct>(ClassProduct item)
-        {
-            var itemParams = item as IParams;
 
-            var selectShowCase = ListClassProducts.Remove(ListClassProducts.Where(dat => dat.Id == itemParams.Id).ToArray()[0]);
+        public string Cathegory { get; set; }
+
+        public bool RemoveItem(int id)
+        {
+            var selectShowCase = ListClassProducts.Remove(ListClassProducts.Where(dat => dat.Id == id).ToArray()[0]);
+            return true;
         }
 
-        public bool AddItem<ClassProduct>(ClassProduct item)
+        public bool AddItem(T item)
         {
             var itemParams = item as IParams;
             if (ListClassProducts.Select(dat => dat.Vol).Sum() + itemParams.Vol > AvalibleVol)
                 return false;
 
-            ListClassProducts.Add(new Data.ClassProduct(itemParams.Name, itemParams.Vol, itemParams.Price));
+            if (itemParams.Cathegory != Cathegory)
+                return false;
+
+            ListClassProducts.Add(new Data.ClassProduct(itemParams.Name, itemParams.Cathegory, itemParams.Vol, itemParams.Price));
             return true;
         }
 

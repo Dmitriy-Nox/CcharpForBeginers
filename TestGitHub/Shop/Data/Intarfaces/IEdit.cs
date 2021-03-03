@@ -6,6 +6,6 @@ namespace Shop.Data.Intarfaces
 {
     public interface IEdit
     {
-        bool Editable<T>(T item);
+        bool Editable<T>(T oldItem, T newItem);
     }
 }

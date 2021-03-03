@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Shop.Data
 {
-    public interface IPlace
+    public interface IPlace<T>
     {
-        void RemoveItem<T>(T item);
-        bool AddItem<T>(T item);
+        bool RemoveItem(int id);
+        bool AddItem(T item);
     }
 }
