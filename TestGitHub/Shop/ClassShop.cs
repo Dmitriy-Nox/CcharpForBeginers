@@ -103,7 +103,7 @@ namespace Shop
 
             var menu34 = new MenuItem("4) Удалить витрину");
             menu34.FuncMenuItem += DeliteShowCase;
-            MunuItems.Add(menu34);
+            MunuItems2.Add(menu34);
 
             var menu35 = new MenuItem("5) Выход");
             menu35.FuncMenuItem += ExitAddProduct;
@@ -414,6 +414,7 @@ namespace Shop
                 if (answer.KeyChar == 'y' || answer.KeyChar == 'n')
                 {
                     Console.Write(answer.KeyChar);
+                    Console.ReadLine();
                     returnVal = answer.KeyChar;
                     break;
                 }
