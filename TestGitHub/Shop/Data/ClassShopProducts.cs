@@ -17,20 +17,19 @@ namespace Shop.Data
 
         public bool RemoveItem(int id)
         {
-            if (ListShowCases.Where(dat => dat.Id == id).ToArray().Length == 0)
+            var items = ListShowCases.Where(dat => dat.Id == id).ToArray();
+            if (items.Length == 0)
+                return false;
+            if (items[0].ListClassProducts.Count != 0)
                 return false;
 
-            ListShowCases.Remove(ListShowCases.Where(dat=> dat.Id== id).ToArray()[0]);
+                ListShowCases.Remove(items.ToArray()[0]);
             return true;
         }
 
         public bool AddItem(T item)
         {
-            var ss = (T)item;
-               var iParams = item as IParams;
-            var showCase = new ClassShowCase<ClassProduct>(iParams.Vol, iParams.Name,iParams.Cathegory);
             ListShowCases.Add(item);
-
             return true;//Пока не было ограничения по витринам
         }
 

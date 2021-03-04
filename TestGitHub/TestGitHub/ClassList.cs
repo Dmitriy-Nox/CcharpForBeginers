@@ -12,7 +12,6 @@ namespace TestGitHub
         }
         public Box First;
         public Box Last;
-        public Box CurrView;
         public int _count;
 
         public void Add(object val)
@@ -36,6 +35,8 @@ namespace TestGitHub
             _count++;
 
         }
+
+
         private Box currBoxView;
         public Box CurrBoxView
         {

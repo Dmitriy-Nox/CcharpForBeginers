@@ -52,20 +52,23 @@ namespace Shop.Data
 
         public bool RemoveItem(int id)
         {
-            var selectShowCase = ListClassProducts.Remove(ListClassProducts.Where(dat => dat.Id == id).ToArray()[0]);
+            var items = ListClassProducts.Where(dat => dat.Id == id).ToArray();
+            if (items.Length == 0)
+                return false;
+
+            ListClassProducts.Remove(items.ToArray()[0]);
             return true;
         }
 
         public bool AddItem(T item)
         {
-            var itemParams = item as IParams;
-            if (ListClassProducts.Select(dat => dat.Vol).Sum() + itemParams.Vol > AvalibleVol)
+            if (item.Vol > AvalibleVol)
                 return false;
 
-            if (itemParams.Cathegory != Cathegory)
+            if (item.Cathegory != Cathegory)
                 return false;
 
-            ListClassProducts.Add(new Data.ClassProduct(itemParams.Name, itemParams.Cathegory, itemParams.Vol, itemParams.Price));
+            ListClassProducts.Add(new ClassProduct(item.Name, item.Cathegory, item.Vol, item.Price));
             return true;
         }
 

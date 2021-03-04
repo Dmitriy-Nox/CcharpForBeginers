@@ -6,33 +6,32 @@ namespace Shop.Menu
 {
     public class MenuItem
     {
-        public MenuItem(string Text)
+        public MenuItem(string Text, DelegateMenuItem delegateMenuItem)
         {
+            FuncMenuItem += delegateMenuItem;
+            NextMenuItems = new List<MenuItem>();
+            PrevMenuItems = new List<MenuItem>();
             this.Text = Text;
         }
 
         public string Text { get; }
 
-        private List<MenuItem> nextMenuItems;
-        public List<MenuItem> NextMenuItems
+        public List<MenuItem> NextMenuItems;
+
+        public List<MenuItem> PrevMenuItems;
+
+
+        public void AddNewReference(List<MenuItem> newMenuItems)
         {
-            get
+            NextMenuItems = newMenuItems;
+            for(var i=0;i<NextMenuItems.Count;i++)
             {
-                return nextMenuItems;
+                NextMenuItems[i].PrevMenuItems = NextMenuItems;
             }
-            set
-            {
-                if (nextMenuItems == null)
-                    nextMenuItems = new List<MenuItem>();
-                var items = value;
+            NextMenuItems = newMenuItems;
+        }
 
-                nextMenuItems.Insert(0, new MenuItem("Выберите действие:"));
-                nextMenuItems.AddRange(items);
-                nextMenuItems.Add(new MenuItem("\r\nВыбрано:"));
-            }
-        }      
-
-        public int ExitNumber { get; set; }
+        public int ExitNumber => NextMenuItems.Count;
 
         public delegate void DelegateMenuItem(int numCommand);
 
