@@ -418,27 +418,7 @@ namespace Shop
 
         private void PrevNextMenu(int numCmd)
         {
-
-
-            var num = numCmd;
-
             CurrMenu = CurrMenu.NextMenuItems[numCmd];
-            //if (num > MenuControl.CurrMenu.CurrFunctions.Count)
-            //    return;
-
-            //if (MenuControl.MenuBlock.ExitNumber != num)
-            //{
-            //    //MenuControl.MenuBlock.NextMenu = MenuControl.MenuBlock.CurrMenutions;
-            //    //MenuControl.MenuBlock.NextMenu.CurrFunctions = MenuControl.MenuBlock.CurrMenu.CurrFunctions;
-
-            //    //MenuControl.MenuBlock.NextMenu = MenuControl.MenuBlock.CurrMenu;
-            //    //MenuControl.MenuBlock.CurrMenu = MenuControl.MenuBlock.CurrMenuBlock[num].NextMenuItems;
-
-            //    return;
-            //}
-            //
-           // MenuControl.MenuBlock.PrevMenu = MenuControl.MenuBlock.CurrMenu;
-            //MenuControl.MenuBlock.CurrMenuBlock = MenuControl.MenuBlock.PrevMenu.CurrMenuBlock;
         }
 
         private void OpenShowCase(int numCmd)
