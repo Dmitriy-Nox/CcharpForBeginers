@@ -6,7 +6,7 @@ using Shop.Data.Intarfaces;
 
 namespace Shop.Data
 {
-    public class ClassShopProducts<T>: IPlace<T> where T : ClassShowCase<ClassProduct>
+    public class ClassShopProducts<T>:IPlace<T> where T : ClassShowCase<ClassProduct>
     {
         public ClassShopProducts()
         {
@@ -29,10 +29,57 @@ namespace Shop.Data
 
         public bool AddItem(T item)
         {
-            ListShowCases.Add(item);
+
+
+            var itemFromCurrName = ListShowCases.Where(dat => dat.Name == item.Name).ToList();
+
+            if (itemFromCurrName.Count == 0)
+                ListShowCases.Add(item);
+
+            //ListShowCases[ListShowCases.IndexOf(itemFromCurrName[0])].Count++;
+
+
             return true;//Пока не было ограничения по витринам
         }
 
-        public List<ClassProduct> ListProducts => ListShowCases.SelectMany(dat => dat.ListClassProducts).ToList();
+        public bool RemoveProduct(int id)
+        {
+            var items = ListProducts.Where(dat => dat.Id == id).ToArray();
+
+            if (items.Length == 0)
+                return false;
+
+            ListProducts.Remove(items.ToArray()[0]);
+            return true;
+        }
+
+        public bool AddProduct(ClassProduct item)
+        {
+            var items = ListProducts.Where(dat => dat.Name == item.Name).ToArray();
+
+            if (items.Length > 0)
+                return false;
+
+            ListProducts.Add(new ClassProduct(item.Name, item.Cathegory, item.Vol, item.Price));
+            return true;
+        }
+
+        public List<ClassProduct> listProducts;// = ;
+
+        public List<ClassProduct> ListProducts
+        {
+            get
+            {
+                if(listProducts==null)
+                {
+                    listProducts = ListShowCases.SelectMany(dat => dat.ListClassProducts).ToList();
+                }
+                return listProducts;
+            }
+            set
+            {
+                listProducts = value;
+            }
+        }
     }
 }

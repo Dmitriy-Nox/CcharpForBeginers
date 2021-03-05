@@ -8,7 +8,8 @@ namespace Shop.Data.Intarfaces
     {
        int Id { get; set; }
 
-       string Name { get; set; }
+
+        string Name { get; set; }
 
        double Vol { get; set; }
 

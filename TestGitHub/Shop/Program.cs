@@ -11,6 +11,7 @@ namespace Shop
         static void Main(string[] args)
         {
             ClassShop classShop = new ClassShop();
+            Console.SetWindowSize(100, 50);
             classShop.Start();
         }
 

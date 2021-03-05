@@ -10,7 +10,8 @@ namespace Shop.Menu
         {
             FuncMenuItem += delegateMenuItem;
             NextMenuItems = new List<MenuItem>();
-            PrevMenuItems = new List<MenuItem>();
+            //PrevMenuItems = new List<MenuItem>();
+            //PrevMenuItems = new MenuItem();
             this.Text = Text;
         }
 
@@ -18,7 +19,7 @@ namespace Shop.Menu
 
         public List<MenuItem> NextMenuItems;
 
-        public List<MenuItem> PrevMenuItems;
+        public MenuItem PrevMenuItems;
 
 
         public void AddNewReference(List<MenuItem> newMenuItems)
@@ -26,7 +27,8 @@ namespace Shop.Menu
             NextMenuItems = newMenuItems;
             for(var i=0;i<NextMenuItems.Count;i++)
             {
-                NextMenuItems[i].PrevMenuItems = NextMenuItems;
+                //NextMenuItems[i].PrevMenuItems = NextMenuItems;
+                NextMenuItems[i].PrevMenuItems = this;
             }
             NextMenuItems = newMenuItems;
         }

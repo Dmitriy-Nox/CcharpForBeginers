@@ -6,7 +6,7 @@ using Shop.Data.Intarfaces;
 
 namespace Shop.Data
 {
-    public class ClassShowCase<T> : IParams, IPlace<T> where T : ClassProduct
+    public class ClassShowCase<T> : IParams, IEdit, IPlace<T> where T : ClassProduct
     {
         public ClassShowCase(double vol,string name,string cathegory)
         {
@@ -28,11 +28,10 @@ namespace Shop.Data
         {
             get
             {
-                return Vol-ListClassProducts.Select(dat => dat.Vol).Sum();
+                return Vol-ListClassProducts.Select(dat => dat.Vol*dat.Count).Sum();
             }
             set { }
         }
-
         
 
         public DateTime DateTimeCreate { get; set; }
@@ -50,13 +49,22 @@ namespace Shop.Data
 
         public string Cathegory { get; set; }
 
+
+
+        public bool IsEditable => ListClassProducts.Count != 0;
+
         public bool RemoveItem(int id)
         {
             var items = ListClassProducts.Where(dat => dat.Id == id).ToArray();
+
             if (items.Length == 0)
                 return false;
 
-            ListClassProducts.Remove(items.ToArray()[0]);
+            if (items[0].Count > 0)
+                items[0].Count--;
+            else
+                ListClassProducts.Remove(items[0]);
+
             return true;
         }
 
@@ -67,8 +75,48 @@ namespace Shop.Data
 
             if (item.Cathegory != Cathegory)
                 return false;
+            var itemFromCurrName = ListClassProducts.Where(dat => dat.Name == item.Name).ToList();
 
-            ListClassProducts.Add(new ClassProduct(item.Name, item.Cathegory, item.Vol, item.Price));
+            if (itemFromCurrName.Count == 0)
+            {
+                item.Count++;
+                ListClassProducts.Add(item);
+            }
+            else
+                ListClassProducts[ListClassProducts.IndexOf(itemFromCurrName[0])].Count++;
+
+            return true;
+        }
+
+        public bool EditVol(int newVal)
+        {
+            if (newVal < ListClassProducts.Select(dat => dat.Vol).Sum())
+                return false;
+
+            Vol = newVal;
+            return true;
+        }
+
+        public bool EditName(string newVal)
+        {
+            if (ListClassProducts.Count!=0)
+                return false;
+
+            Name = newVal;
+            return true;
+        }
+
+        public bool EditCathegory(string newVal)
+        {
+            if (ListClassProducts.Count != 0)
+                return false;
+
+            Cathegory = newVal;
+            return true;
+        }
+
+        public bool EditPrice(string newVol)
+        {
             return true;
         }
 

@@ -22,9 +22,39 @@ namespace Shop.Data
         public double Vol { get; set; }
         public decimal Price { get; set; }
         public string Cathegory { get; set; }
+        public int Count { get; set; } = 0;
 
-        public bool Editable<T>(T oldItem,T newItem)
+        public bool IsEditable => Count == 0;
+
+        public bool EditVol(int newVal)
         {
+            if (Count != 0)
+                return false;
+            Vol = newVal;
+            return true;
+        }
+
+        public bool EditName(string newVal)
+        {
+            if (Count != 0)
+                return false;
+            Name = newVal;
+            return true;
+        }
+
+        public bool EditCathegory(string newVal)
+        {
+            if (Count != 0)
+                return false;
+            Cathegory = newVal;
+            return true;
+        }
+
+        public bool EditPrice(string newVal)
+        {
+            if (Count != 0)
+                return false;
+            Cathegory = newVal;
             return true;
         }
     }
