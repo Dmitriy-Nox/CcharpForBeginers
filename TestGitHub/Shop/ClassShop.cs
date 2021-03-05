@@ -277,7 +277,22 @@ namespace Shop
             bool isEndAdd = true;
             while(isEndAdd)
             {
-                var selPr = SelectProductOnShowCase(selSC);
+
+                Console.Clear();
+                Console.WriteLine($"Все доступные для изменения товары:");
+                Console.WriteLine("");
+                Console.WriteLine($"{"N",-7}{"IdProduct",-15}{"Cathegory",-18}{"Name",-20}{"Vol",-10}{"Price",-10}{"IsEditable",-10}");
+                Console.WriteLine("");
+
+                for (int i = 0; i < ClassShopProducts.ListProducts.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1,-7}{ClassShopProducts.ListProducts[i].Id,-15}{ClassShopProducts.ListProducts[i].Cathegory,-18}{ClassShopProducts.ListProducts[i].Name,-20}{ClassShopProducts.ListProducts[i].Vol,-10}{ClassShopProducts.ListProducts[i].Price,-10}{(ClassShopProducts.ListProducts[i].IsEditable).ToString(),-10}");
+                }
+                int numProduct = 0;
+                Console.WriteLine("Введите номер продукта:");
+                ReadStringInt(out numProduct);
+                numProduct = CheckNum(numProduct-1, ClassShopProducts.ListProducts.Count);
+                var selPr = ClassShopProducts.ListProducts[numProduct];//SelectProductOnShowCase(selSC);
                 var isSucsessAdd = selSC.AddItem(selPr);
                 if (isSucsessAdd)
                     Console.WriteLine("Товар добавлен");
