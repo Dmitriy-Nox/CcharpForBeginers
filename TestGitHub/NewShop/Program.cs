@@ -1,8 +1,9 @@
 ﻿using System;
-using Shop.ServerControl;
-using Shop.View;
+using System.Collections.Generic;
+using NewShop.ServerControl;
+using NewShop.View;
 
-namespace Shop
+namespace NewShop
 {
     class Program
     {
@@ -28,7 +29,7 @@ namespace Shop
                     var ServerShop = new ServerShop(new ViewServer());
                     ServerShop.Start();
                     break;
-
+                    
                 case 2:
                     Console.Clear();
                     var LocalShop = new Shop(new ViewLocal());

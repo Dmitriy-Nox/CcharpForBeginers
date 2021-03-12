@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Shop.Data.Intarfaces;
+using NewShop.ModelShop.Interfaces;
 
-namespace Shop.Data
+namespace NewShop.ModelShop
 {
     public class ClassShopProducts<T>:IPlace<T> where T : ClassShowCase<ClassProduct>
     {
@@ -29,26 +29,17 @@ namespace Shop.Data
 
         public bool AddItem(T item)
         {
-
-
             var itemFromCurrName = ListShowCases.Where(dat => dat.Name == item.Name).ToList();
-
             if (itemFromCurrName.Count == 0)
                 ListShowCases.Add(item);
-
-            //ListShowCases[ListShowCases.IndexOf(itemFromCurrName[0])].Count++;
-
-
-            return true;//Пока не было ограничения по витринам
+            return true;
         }
 
         public bool RemoveProduct(int id)
         {
             var items = ListProducts.Where(dat => dat.Id == id).ToArray();
-
             if (items.Length == 0)
                 return false;
-
             ListProducts.Remove(items.ToArray()[0]);
             return true;
         }
@@ -56,15 +47,13 @@ namespace Shop.Data
         public bool AddProduct(ClassProduct item)
         {
             var items = ListProducts.Where(dat => dat.Name == item.Name).ToArray();
-
             if (items.Length > 0)
                 return false;
-
             ListProducts.Add(new ClassProduct(item.Name, item.Cathegory, item.Vol, item.Price));
             return true;
         }
 
-        public List<ClassProduct> listProducts;// = ;
+        public List<ClassProduct> listProducts;
 
         public List<ClassProduct> ListProducts
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Shop.Data
+namespace NewShop.ModelShop.Interfaces
 {
     public interface IPlace<T>
     {
